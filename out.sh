@@ -28,6 +28,11 @@ on_failure="$(jq -rcM '.params.on_failure // "true"' < "${payload}")"
 
 values="$(jq -rcM '.params.values' < "${payload}")"
 
+if [ -f "${1}/${values}/color" ]; then
+    echo "Expected input values are not set."
+    exit 1
+fi
+
 if [ "$(cat ${1}/${values}/color)" == "good" ]; then
     echo "Build succeeded"
     if [ "${on_success}" == "true" ]; then
