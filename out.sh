@@ -28,7 +28,7 @@ on_failure="$(jq -rcM '.params.on_failure // "true"' < "${payload}")"
 
 values="$(jq -rcM '.params.values' < "${payload}")"
 
-if [ -f "${1}/${values}/color" ]; then
+if [ ! -f "${1}/${values}/color" ]; then
     echo "Expected input values are not set."
     exit 1
 fi
